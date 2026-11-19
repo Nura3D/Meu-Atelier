@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#80634d">
+<title>Meu Atelier</title>
+<style>
+:root{--brown:#80634d;--dark:#49382d;--beige:#f5eee5;--cream:#fffaf4;--line:#e6d8c8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--beige);color:var(--dark);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{background:var(--brown);color:white;padding:25px 20px 22px;text-align:center}
+header h1{font-family:Georgia,serif;font-weight:normal;font-size:30px;margin:0}
+header p{margin:7px 0 0;font-size:13px;opacity:.9}
+main{max-width:650px;margin:auto;padding:16px}
+.card{background:var(--cream);padding:17px;border-radius:16px;margin-bottom:15px;box-shadow:0 2px 9px #49382d0c}
+h2{font-family:Georgia,serif;font-size:21px;font-weight:normal;margin:0 0 15px}
+label{display:block;font-size:13px;margin:12px 0 5px;color:#725b49}
+input,select,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;background:white;color:var(--dark);font:inherit;font-size:15px}
+textarea{min-height:65px}
+button{border:0;border-radius:10px;padding:12px 15px;background:var(--brown);color:white;font-size:14px;font-weight:600;cursor:pointer}
+button.secondary{background:#e9ded1;color:var(--dark)}
+button.danger{background:#f2dfd8;color:#8b4437}
+button.small{padding:8px 11px;font-size:12px}
+.row{display:flex;gap:9px;align-items:center}
+.row>*{flex:1;min-width:0}
+.product{border:1px solid var(--line);padding:10px;border-radius:10px;margin:9px 0}
+.product input{padding:9px}
+.total{font-size:18px;font-weight:700;text-align:right;margin:15px 0}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.actions button{flex:1}
+.order{border:1px solid var(--line);border-radius:12px;padding:13px;margin:10px 0}
+.order h3{margin:0 0 5px;font-size:17px}
+.muted{font-size:12px;color:#897765}
+.amount{font-weight:700;margin:7px 0}
+.pill{display:inline-block;background:#eee3d7;padding:5px 9px;border-radius:20px;font-size:11px;margin:3px 3px 3px 0}
+.empty{text-align:center;color:#897765;padding:22px}
+hr{border:0;border-top:1px solid var(--line);margin:15px 0}
+footer{text-align:center;color:#9b8978;font-size:11px;padding:15px}
+</style>
+</head>
+<body>
+<header>
+<h1>Meu Atelier</h1>
+<p>Pequenos detalhes, grandes momentos ♡</p>
+</header>
+<main>
+<section class="card">
+<h2>Nova encomenda</h2>
+<label>Nome do cliente *</label>
+<input id="client" placeholder="Nome do cliente">
+<label>Telefone / contacto</label>
+<input id="phone" placeholder="Contacto">
+<label>Produtos</label>
+<div id="products"></div>
+<button class="secondary small" onclick="addProduct()">+ Adicionar produto</button>
+<div class="total">Total: <span id="total">0,00 €</span></div>
+<div class="row">
+<div><label>Valor já pago (€)</label><input id="paid" type="number" min="0" step=".01" value="0" oninput="updateTotal()"></div>
+<div><label>Data prevista</label><input id="date" type="date"></div>
+</div>
+<label>Estado da encomenda</label>
+<select id="status">
+<option>Por preparar</option>
+<option>Em preparação</option>
+<option>Pronta</option>
+<option>Entregue</option>
+</select>
+<label>Notas</label>
+<textarea id="notes" placeholder="Detalhes da encomenda..."></textarea>
+<button style="width:100%;margin-top:15px" onclick="saveOrder()">Guardar encomenda</button>
+</section>
+
+<section class="card">
+<h2>As minhas encomendas</h2>
+<input id="search" placeholder="Pesquisar cliente ou produto..." oninput="render()">
+<div class="row" style="margin-top:10px">
+<select id="filter" onchange="render()">
+<option value="">Todas</option>
+<option>Por preparar</option>
+<option>Em preparação</option>
+<option>Pronta</option>
+<option>Entregue</option>
+</select>
+<button class="secondary" onclick="exportData()">Exportar cópia</button>
+</div>
+<div id="orders"></div>
+</section>
+<footer>Meu Atelier · Os teus dados ficam guardados neste dispositivo.</footer>
+</main>
+<script>
+let orders=JSON.parse(localStorage.getItem("meuAtelierOrders")||"[]");
+let editing=null;
+const euro=n=>Number(n||0).toLocaleString("pt-PT",{style:"currency",currency:"EUR"});
+function addProduct(name="",qty=1,price=0){
+ const d=document.createElement("div");d.className="product";
+ d.innerHTML=`<label>Produto</label><input class="pname" placeholder="Nome do produto" value="${safe(name)}">
+ <div class="row"><div><label>Quantidade</label><input class="qty" type="number" min="1" value="${qty}" oninput="updateTotal()"></div>
+ <div><label>Preço unitário (€)</label><input class="price" type="number" min="0" step=".01" value="${price}" oninput="updateTotal()"></div></div>
+ <button class="danger small" onclick="this.parentElement.remove();updateTotal()">Remover produto</button>`;
+ document.getElementById("products").appendChild(d);updateTotal();
+}
+function safe(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function productData(){return [...document.querySelectorAll(".product")].map(d=>({name:d.querySelector(".pname").value,qty:Number(d.querySelector(".qty").value)||0,price:Number(d.querySelector(".price").value)||0})).filter(p=>p.name.trim())}
+function updateTotal(){
+ let t=productData().reduce((s,p)=>s+p.qty*p.price,0);
+ document.getElementById("total").textContent=euro(t);
+}
+function saveOrder(){
+ const client=document.getElementById("client").value.trim(),products=productData();
+ if(!client){alert("Indica o nome do cliente.");return}
+ if(!products.length){alert("Adiciona pelo menos um produto.");return}
+ const total=products.reduce((s,p)=>s+p.qty*p.price,0),paid=Number(document.getElementById("paid").value)||0;
+ if(paid<0||paid>total){alert("Confirma o valor pago. Não pode ser superior ao total.");return}
+ const order={id:editing||Date.now(),client,phone:document.getElementById("phone").value,products,total,paid,date:document.getElementById("date").value,status:document.getElementById("status").value,notes:document.getElementById("notes").value,created:new Date().toISOString()};
+ if(editing){orders=orders.map(o=>o.id===editing?order:o)}else{orders.unshift(order)}
+ localStorage.setItem("meuAtelierOrders",JSON.stringify(orders));
+ resetForm();render();alert("Encomenda guardada! ♡");
+}
+function resetForm(){
+ editing=null;document.getElementById("client").value="";document.getElementById("phone").value="";
+ document.getElementById("paid").value=0;document.getElementById("date").value="";
+ document.getElementById("status").value="Por preparar";document.getElementById("notes").value="";
+ document.getElementById("products").innerHTML="";addProduct();
+}
+function editOrder(id){
+ const o=orders.find(x=>x.id===id);if(!o)return;editing=id;
+ document.getElementById("client").value=o.client;document.getElementById("phone").value=o.phone||"";
+ document.getElementById("paid").value=o.paid;document.getElementById("date").value=o.date||"";
+ document.getElementById("status").value=o.status;document.getElementById("notes").value=o.notes||"";
+ document.getElementById("products").innerHTML="";o.products.forEach(p=>addProduct(p.name,p.qty,p.price));
+ document.querySelector("h2").scrollIntoView({behavior:"smooth"});
+}
+function removeOrder(id){
+ if(!confirm("Queres apagar esta encomenda?"))return;
+ orders=orders.filter(o=>o.id!==id);localStorage.setItem("meuAtelierOrders",JSON.stringify(orders));render();
+}
+function render(){
+ const q=document.getElementById("search").value.toLowerCase(),f=document.getElementById("filter").value;
+ const list=orders.filter(o=>(!f||o.status===f)&&(`${o.client} ${o.phone} ${o.products.map(p=>p.name).join(" ")}`).toLowerCase().includes(q));
+ const el=document.getElementById("orders");
+ if(!list.length){el.innerHTML='<div class="empty">Ainda não há encomendas a mostrar.</div>';return}
+ el.innerHTML=list.map(o=>{
+ const due=o.total-o.paid;
+ return `<div class="order"><h3>${safe(o.client)}</h3>
+ <div class="muted">${safe(o.phone||"Sem contacto")} · ${o.date?new Date(o.date+"T12:00:00").toLocaleDateString("pt-PT"):"Sem data prevista"}</div>
+ <p>${o.products.map(p=>`${safe(p.name)} × ${p.qty}`).join("<br>")}</p>
+ <div class="amount">${euro(o.total)} · Pago: ${euro(o.paid)} · Em dívida: ${euro(due)}</div>
+ <span class="pill">${safe(o.status)}</span><span class="pill">${due<=0?"Pago":"Por pagar"}</span>
+ ${o.notes?`<p class="muted">${safe(o.notes)}</p>`:""}
+ <div class="actions"><button class="small" onclick="editOrder(${o.id})">Editar</button><button class="danger small" onclick="removeOrder(${o.id})">Apagar</button></div></div>`;
+ }).join("");
+}
+function exportData(){
+ const blob=new Blob([JSON.stringify(orders,null,2)],{type:"application/json"});
+ const url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="meu-atelier-backup.json";a.click();URL.revokeObjectURL(url);
+}
+addProduct();render();
+</script>
+</body>
+</html>
