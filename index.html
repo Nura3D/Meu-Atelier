@@ -7,108 +7,156 @@
 <title>Meu Atelier</title>
 <style>
 :root{--brown:#80634d;--dark:#49382d;--beige:#f5eee5;--cream:#fffaf4;--line:#e6d8c8}
-*{box-sizing:border-box}body{margin:0;background:var(--beige);color:var(--dark);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-header{background:var(--brown);color:white;padding:25px 20px 22px;text-align:center}header h1{font-family:Georgia,serif;font-weight:normal;font-size:30px;margin:0}header p{margin:7px 0 0;font-size:13px;opacity:.9}
-main{max-width:760px;margin:auto;padding:16px}.card{background:var(--cream);padding:17px;border-radius:16px;margin-bottom:15px;box-shadow:0 2px 9px #49382d0c}
-h2{font-family:Georgia,serif;font-size:21px;font-weight:normal;margin:0 0 15px}h3{margin:0 0 6px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--beige);color:var(--dark);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{background:var(--brown);color:white;padding:25px 20px 22px;text-align:center}
+header h1{font-family:Georgia,serif;font-weight:normal;font-size:30px;margin:0}
+header p{margin:7px 0 0;font-size:13px;opacity:.9}
+main{max-width:650px;margin:auto;padding:16px}
+.card{background:var(--cream);padding:17px;border-radius:16px;margin-bottom:15px;box-shadow:0 2px 9px #49382d0c}
+h2{font-family:Georgia,serif;font-size:21px;font-weight:normal;margin:0 0 15px}
 label{display:block;font-size:13px;margin:12px 0 5px;color:#725b49}
-input,select,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;background:white;color:var(--dark);font:inherit;font-size:15px}textarea{min-height:65px}
-button{border:0;border-radius:10px;padding:12px 15px;background:var(--brown);color:white;font-size:14px;font-weight:600;cursor:pointer}button.secondary{background:#e9ded1;color:var(--dark)}button.danger{background:#f2dfd8;color:#8b4437}button.small{padding:8px 11px;font-size:12px}
-.row{display:flex;gap:9px;align-items:center}.row>*{flex:1;min-width:0}.product{border:1px solid var(--line);padding:10px;border-radius:10px;margin:9px 0}
-.product input{padding:9px}.total{font-size:18px;font-weight:700;text-align:right;margin:15px 0}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.actions button{flex:1}
-.order{border:1px solid var(--line);border-radius:12px;padding:13px;margin:10px 0}.muted{font-size:12px;color:#897765}.amount{font-weight:700;margin:7px 0}.pill{display:inline-block;background:#eee3d7;padding:5px 9px;border-radius:20px;font-size:11px;margin:3px 3px 3px 0}
-.empty{text-align:center;color:#897765;padding:22px}hr{border:0;border-top:1px solid var(--line);margin:15px 0}footer{text-align:center;color:#9b8978;font-size:11px;padding:15px}
-nav{display:flex;gap:7px;overflow:auto;padding:12px 16px;background:#fffaf4;position:sticky;top:0;z-index:5;border-bottom:1px solid var(--line)}
-nav button{white-space:nowrap;flex:1;padding:10px 12px}nav button.active{background:#49382d}
-.page{display:none}.page.active{display:block}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-@media(max-width:480px){.grid2{grid-template-columns:1fr}.row.wrap-mobile{flex-wrap:wrap}}
+input,select,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;background:white;color:var(--dark);font:inherit;font-size:15px}
+textarea{min-height:65px}
+button{border:0;border-radius:10px;padding:12px 15px;background:var(--brown);color:white;font-size:14px;font-weight:600;cursor:pointer}
+button.secondary{background:#e9ded1;color:var(--dark)}
+button.danger{background:#f2dfd8;color:#8b4437}
+button.small{padding:8px 11px;font-size:12px}
+.row{display:flex;gap:9px;align-items:center}
+.row>*{flex:1;min-width:0}
+.product{border:1px solid var(--line);padding:10px;border-radius:10px;margin:9px 0}
+.product input{padding:9px}
+.total{font-size:18px;font-weight:700;text-align:right;margin:15px 0}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.actions button{flex:1}
+.order{border:1px solid var(--line);border-radius:12px;padding:13px;margin:10px 0}
+.order h3{margin:0 0 5px;font-size:17px}
+.muted{font-size:12px;color:#897765}
+.amount{font-weight:700;margin:7px 0}
+.pill{display:inline-block;background:#eee3d7;padding:5px 9px;border-radius:20px;font-size:11px;margin:3px 3px 3px 0}
+.empty{text-align:center;color:#897765;padding:22px}
+hr{border:0;border-top:1px solid var(--line);margin:15px 0}
+footer{text-align:center;color:#9b8978;font-size:11px;padding:15px}
 </style>
 </head>
 <body>
-<header><h1>Meu Atelier</h1><p>Pequenos detalhes, grandes momentos â¡</p></header>
-<nav>
-<button class="active" data-page="ordersPage" onclick="showPage('ordersPage',this)">Encomendas</button>
-<button data-page="quotesPage" onclick="showPage('quotesPage',this)">OrÃ§amentos</button>
-<button data-page="costPage" onclick="showPage('costPage',this)">Custos 3D</button>
-</nav>
+<header>
+<h1>Meu Atelier</h1>
+<p>Pequenos detalhes, grandes momentos ♡</p>
+</header>
 <main>
-<section id="ordersPage" class="page active">
-<div class="card">
-<h2 id="orderFormTitle">Nova encomenda</h2>
-<label>Nome do cliente *</label><input id="client" placeholder="Nome do cliente">
-<label>Telefone / contacto</label><input id="phone" placeholder="Contacto">
-<label>Produtos</label><div id="products"></div><button class="secondary small" onclick="addProduct()">+ Adicionar produto</button>
-<div class="total">Total: <span id="total">0,00 â¬</span></div>
-<div class="row"><div><label>Valor jÃ¡ pago (â¬)</label><input id="paid" type="number" min="0" step=".01" value="0" oninput="updateTotal()"></div><div><label>Data prevista</label><input id="date" type="date"></div></div>
-<label>Estado da encomenda</label><select id="status"><option>Por preparar</option><option>Em preparaÃ§Ã£o</option><option>Pronta</option><option>Entregue</option></select>
-<label>Notas</label><textarea id="notes" placeholder="Detalhes da encomenda..."></textarea>
+<section class="card">
+<h2>Nova encomenda</h2>
+<label>Nome do cliente *</label>
+<input id="client" placeholder="Nome do cliente">
+<label>Telefone / contacto</label>
+<input id="phone" placeholder="Contacto">
+<label>Produtos</label>
+<div id="products"></div>
+<button class="secondary small" onclick="addProduct()">+ Adicionar produto</button>
+<div class="total">Total: <span id="total">0,00 €</span></div>
+<div class="row">
+<div><label>Valor já pago (€)</label><input id="paid" type="number" min="0" step=".01" value="0" oninput="updateTotal()"></div>
+<div><label>Data prevista</label><input id="date" type="date"></div>
+</div>
+<label>Estado da encomenda</label>
+<select id="status">
+<option>Por preparar</option>
+<option>Em preparação</option>
+<option>Pronta</option>
+<option>Entregue</option>
+</select>
+<label>Notas</label>
+<textarea id="notes" placeholder="Detalhes da encomenda..."></textarea>
 <button style="width:100%;margin-top:15px" onclick="saveOrder()">Guardar encomenda</button>
-</div>
-<div class="card"><h2>As minhas encomendas</h2><input id="search" placeholder="Pesquisar cliente ou produto..." oninput="renderOrders()">
-<div class="row" style="margin-top:10px"><select id="filter" onchange="renderOrders()"><option value="">Todas</option><option>Por preparar</option><option>Em preparaÃ§Ã£o</option><option>Pronta</option><option>Entregue</option></select><button class="secondary" onclick="exportData()">Exportar cÃ³pia</button></div><div id="orders"></div></div>
 </section>
 
-<section id="quotesPage" class="page">
-<div class="card">
-<h2 id="quoteFormTitle">Novo orÃ§amento</h2>
-<label>Nome do cliente *</label><input id="qClient" placeholder="Nome do cliente">
-<label>Telefone / contacto</label><input id="qPhone" placeholder="Contacto">
-<label>Produtos</label><div id="qProducts"></div><button class="secondary small" onclick="addQuoteProduct()">+ Adicionar produto</button>
-<div class="grid2"><div><label>Desconto (â¬)</label><input id="qDiscount" type="number" min="0" step=".01" value="0" oninput="updateQuoteTotal()"></div><div><label>VÃ¡lido atÃ©</label><input id="qValid" type="date"></div></div>
-<div class="total">Total do orÃ§amento: <span id="qTotal">0,00 â¬</span></div>
-<label>Estado</label><select id="qStatus"><option>Pendente</option><option>Aceite</option><option>Recusado</option></select>
-<label>Notas</label><textarea id="qNotes" placeholder="Detalhes, condiÃ§Ãµes ou observaÃ§Ãµes..."></textarea>
-<button style="width:100%;margin-top:15px" onclick="saveQuote()">Guardar orÃ§amento</button>
+<section class="card">
+<h2>As minhas encomendas</h2>
+<input id="search" placeholder="Pesquisar cliente ou produto..." oninput="render()">
+<div class="row" style="margin-top:10px">
+<select id="filter" onchange="render()">
+<option value="">Todas</option>
+<option>Por preparar</option>
+<option>Em preparação</option>
+<option>Pronta</option>
+<option>Entregue</option>
+</select>
+<button class="secondary" onclick="exportData()">Exportar cópia</button>
 </div>
-<div class="card"><h2>Os meus orÃ§amentos</h2><input id="qSearch" placeholder="Pesquisar cliente ou produto..." oninput="renderQuotes()"><div id="quotes"></div></div>
+<div id="orders"></div>
 </section>
-
-<section id="costPage" class="page">
-<div class="card"><h2>Calculadora de custos 3D</h2>
-<label>Nome do produto</label><input id="cName" placeholder="Ex.: PeÃ§a decorativa">
-<div class="grid2"><div><label>Filamento utilizado (g)</label><input id="cGrams" type="number" min="0" step=".1" value="50"></div><div><label>PreÃ§o da bobine (â¬)</label><input id="cSpoolPrice" type="number" min="0" step=".01" value="20"></div><div><label>Peso da bobine (g)</label><input id="cSpoolWeight" type="number" min="1" value="1000"></div><div><label>Tempo de impressÃ£o (horas)</label><input id="cHours" type="number" min="0" step=".1" value="2"></div><div><label>Consumo da impressora (W)</label><input id="cWatts" type="number" min="0" value="150"></div><div><label>PreÃ§o eletricidade (â¬/kWh)</label><input id="cKwh" type="number" min="0" step=".001" value=".20"></div><div><label>Outros custos (â¬)</label><input id="cOther" type="number" min="0" step=".01" value="0"></div><div><label>Desgaste/manutenÃ§Ã£o (â¬)</label><input id="cWear" type="number" min="0" step=".01" value="0"></div></div>
-<div class="total">Custo total: <span id="cTotal">0,00 â¬</span></div>
-<div class="grid2"><div class="product"><b>+50% sobre o custo</b><div id="p50">â</div><small id="profit50"></small></div><div class="product"><b>+100% sobre o custo</b><div id="p100">â</div><small id="profit100"></small></div><div class="product"><b>+200% sobre o custo</b><div id="p200">â</div><small id="profit200"></small></div></div>
-<div class="actions"><button onclick="calculateCost()">Calcular</button><button class="secondary" onclick="saveCostProduct()">Guardar na biblioteca</button></div>
-</div>
-<div class="card"><h2>Biblioteca de produtos 3D</h2><p class="muted">Guarda os custos calculados e adiciona produtos diretamente a um orÃ§amento.</p><div id="costLibrary"></div></div>
-</section>
-<footer>Meu Atelier Â· Os teus dados ficam guardados neste dispositivo. Faz cÃ³pias de seguranÃ§a regularmente.</footer>
+<footer>Meu Atelier · Os teus dados ficam guardados neste dispositivo.</footer>
 </main>
 <script>
+let orders=JSON.parse(localStorage.getItem("meuAtelierOrders")||"[]");
+let editing=null;
 const euro=n=>Number(n||0).toLocaleString("pt-PT",{style:"currency",currency:"EUR"});
-const read=(k)=>{try{return JSON.parse(localStorage.getItem(k)||"[]")}catch(e){return []}};
-let orders=read("meuAtelierOrders"),quotes=read("meuAtelierQuotes"),costProducts=read("meuAtelierCostProducts"),editingOrder=null,editingQuote=null,lastCost=null;
-function persist(){localStorage.setItem("meuAtelierOrders",JSON.stringify(orders));localStorage.setItem("meuAtelierQuotes",JSON.stringify(quotes));localStorage.setItem("meuAtelierCostProducts",JSON.stringify(costProducts))}
-function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function showPage(id,btn){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));btn.classList.add("active")}
-function productBlock(container,name="",qty=1,price=0,kind="order"){const d=document.createElement("div");d.className="product";d.innerHTML=`<label>Produto</label><input class="pname" placeholder="Nome do produto" value="${safe(name)}"><div class="row"><div><label>Quantidade</label><input class="qty" type="number" min="1" value="${qty}" oninput="${kind==="order"?"updateTotal()":"updateQuoteTotal()"}"></div><div><label>PreÃ§o unitÃ¡rio (â¬)</label><input class="price" type="number" min="0" step=".01" value="${price}" oninput="${kind==="order"?"updateTotal()":"updateQuoteTotal()"}"></div></div><button class="danger small" onclick="this.parentElement.remove();${kind==="order"?"updateTotal()":"updateQuoteTotal()"}">Remover produto</button>`;document.getElementById(container).appendChild(d)}
-function addProduct(n="",q=1,p=0){productBlock("products",n,q,p,"order");updateTotal()}
-function addQuoteProduct(n="",q=1,p=0){productBlock("qProducts",n,q,p,"quote");updateQuoteTotal()}
-function collectProducts(container){return [...document.querySelectorAll("#"+container+" .product")].map(d=>({name:d.querySelector(".pname").value.trim(),qty:Number(d.querySelector(".qty").value)||0,price:Number(d.querySelector(".price").value)||0})).filter(p=>p.name&&p.qty>0)}
-function updateTotal(){document.getElementById("total").textContent=euro(collectProducts("products").reduce((s,p)=>s+p.qty*p.price,0))}
-function saveOrder(){const client=document.getElementById("client").value.trim(),products=collectProducts("products");if(!client)return alert("Indica o nome do cliente.");if(!products.length)return alert("Adiciona pelo menos um produto.");const total=products.reduce((s,p)=>s+p.qty*p.price,0),paid=Number(document.getElementById("paid").value)||0;if(paid<0||paid>total)return alert("Confirma o valor pago. NÃ£o pode ser superior ao total.");const o={id:editingOrder||Date.now(),client,phone:document.getElementById("phone").value,products,total,paid,date:document.getElementById("date").value,status:document.getElementById("status").value,notes:document.getElementById("notes").value,created:new Date().toISOString()};if(editingOrder)orders=orders.map(x=>x.id===editingOrder?o:x);else orders.unshift(o);localStorage.setItem("meuAtelierOrders",JSON.stringify(orders));resetOrder();renderOrders();alert("Encomenda guardada! â¡")}
-function resetOrder(){editingOrder=null;document.getElementById("orderFormTitle").textContent="Nova encomenda";["client","phone","date","notes"].forEach(id=>document.getElementById(id).value="");document.getElementById("paid").value=0;document.getElementById("status").value="Por preparar";document.getElementById("products").innerHTML="";addProduct()}
-function editOrder(id){const o=orders.find(x=>x.id===id);if(!o)return;editingOrder=id;document.getElementById("orderFormTitle").textContent="Editar encomenda";document.getElementById("client").value=o.client;document.getElementById("phone").value=o.phone||"";document.getElementById("paid").value=o.paid;document.getElementById("date").value=o.date||"";document.getElementById("status").value=o.status;document.getElementById("notes").value=o.notes||"";document.getElementById("products").innerHTML="";o.products.forEach(p=>addProduct(p.name,p.qty,p.price));document.getElementById("ordersPage").scrollIntoView({behavior:"smooth"})}
-function deleteOrder(id){if(!confirm("Queres apagar esta encomenda?"))return;orders=orders.filter(o=>o.id!==id);localStorage.setItem("meuAtelierOrders",JSON.stringify(orders));renderOrders()}
-function renderOrders(){const q=(document.getElementById("search").value||"").toLowerCase(),f=document.getElementById("filter").value,list=orders.filter(o=>(!f||o.status===f)&&(`${o.client} ${o.phone} ${o.products.map(p=>p.name).join(" ")}`).toLowerCase().includes(q)),el=document.getElementById("orders");if(!list.length){el.innerHTML='<div class="empty">Ainda nÃ£o hÃ¡ encomendas a mostrar.</div>';return}el.innerHTML=list.map(o=>{const due=o.total-o.paid;return `<div class="order"><h3>${safe(o.client)}</h3><div class="muted">${safe(o.phone||"Sem contacto")} Â· ${o.date?new Date(o.date+"T12:00:00").toLocaleDateString("pt-PT"):"Sem data prevista"}</div><p>${o.products.map(p=>`${safe(p.name)} Ã ${p.qty}`).join("<br>")}</p><div class="amount">${euro(o.total)} Â· Pago: ${euro(o.paid)} Â· Em dÃ­vida: ${euro(due)}</div><span class="pill">${safe(o.status)}</span><span class="pill">${due<=0?"Pago":"Por pagar"}</span>${o.notes?`<p class="muted">${safe(o.notes)}</p>`:""}<div class="actions"><button class="small" onclick="editOrder(${o.id})">Editar</button><button class="danger small" onclick="deleteOrder(${o.id})">Apagar</button></div></div>`}).join("")}
-function exportData(){const payload={orders,quotes,costProducts,exportedAt:new Date().toISOString()};const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="meu-atelier-backup.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-function quoteProducts(){return collectProducts("qProducts")}
-function quoteTotal(){return Math.max(0,quoteProducts().reduce((s,p)=>s+p.qty*p.price,0)-(Number(document.getElementById("qDiscount").value)||0))}
-function updateQuoteTotal(){document.getElementById("qTotal").textContent=euro(quoteTotal())}
-function saveQuote(){const client=document.getElementById("qClient").value.trim(),products=quoteProducts(),discount=Number(document.getElementById("qDiscount").value)||0,subtotal=products.reduce((s,p)=>s+p.qty*p.price,0);if(!client)return alert("Indica o nome do cliente.");if(!products.length)return alert("Adiciona pelo menos um produto.");if(discount<0||discount>subtotal)return alert("Confirma o desconto.");const q={id:editingQuote||Date.now(),client,phone:document.getElementById("qPhone").value,products,discount,total:subtotal-discount,valid:document.getElementById("qValid").value,status:document.getElementById("qStatus").value,notes:document.getElementById("qNotes").value,converted:editingQuote?(quotes.find(x=>x.id===editingQuote)?.converted||false):false,created:new Date().toISOString()};if(editingQuote)quotes=quotes.map(x=>x.id===editingQuote?q:x);else quotes.unshift(q);localStorage.setItem("meuAtelierQuotes",JSON.stringify(quotes));resetQuote();renderQuotes();alert("OrÃ§amento guardado! â¡")}
-function resetQuote(){editingQuote=null;document.getElementById("quoteFormTitle").textContent="Novo orÃ§amento";["qClient","qPhone","qValid","qNotes"].forEach(id=>document.getElementById(id).value="");document.getElementById("qDiscount").value=0;document.getElementById("qStatus").value="Pendente";document.getElementById("qProducts").innerHTML="";addQuoteProduct()}
-function editQuote(id){const q=quotes.find(x=>x.id===id);if(!q)return;editingQuote=id;document.getElementById("quoteFormTitle").textContent="Editar orÃ§amento";document.getElementById("qClient").value=q.client;document.getElementById("qPhone").value=q.phone||"";document.getElementById("qDiscount").value=q.discount||0;document.getElementById("qValid").value=q.valid||"";document.getElementById("qStatus").value=q.status;document.getElementById("qNotes").value=q.notes||"";document.getElementById("qProducts").innerHTML="";q.products.forEach(p=>addQuoteProduct(p.name,p.qty,p.price));document.getElementById("quotesPage").scrollIntoView({behavior:"smooth"})}
-function deleteQuote(id){if(!confirm("Apagar este orÃ§amento?"))return;quotes=quotes.filter(q=>q.id!==id);localStorage.setItem("meuAtelierQuotes",JSON.stringify(quotes));renderQuotes()}
-function convertQuote(id){const q=quotes.find(x=>x.id===id);if(!q||q.status!=="Aceite")return alert("SÃ³ podes converter um orÃ§amento aceite.");if(q.converted)return alert("Este orÃ§amento jÃ¡ foi convertido numa encomenda.");if(!confirm("Criar encomenda com os dados deste orÃ§amento?"))return;orders.unshift({id:Date.now(),client:q.client,phone:q.phone,products:q.products.map(p=>({...p})),total:q.total,paid:0,date:"",status:"Por preparar",notes:"Criada a partir do orÃ§amento #"+q.id+(q.notes?" Â· "+q.notes:""),created:new Date().toISOString()});q.converted=true;persist();renderQuotes();renderOrders();alert("OrÃ§amento convertido em encomenda! â¡");showPage("ordersPage",document.querySelector('[data-page="ordersPage"]'))}
-function printQuote(id){const q=quotes.find(x=>x.id===id);if(!q)return;const w=window.open("","_blank");if(!w)return alert("Permite abrir a janela para imprimir/guardar PDF.");w.document.write(`<!doctype html><html lang="pt"><meta charset="utf-8"><title>OrÃ§amento</title><style>body{font:15px Arial;color:#49382d;padding:35px}h1{font-family:Georgia;color:#80634d}table{width:100%;border-collapse:collapse;margin-top:25px}td,th{padding:10px;border-bottom:1px solid #ddd;text-align:left}.right{text-align:right}.total{text-align:right;font-size:20px;font-weight:bold;margin-top:20px}</style><h1>Meu Atelier</h1><h2>OrÃ§amento</h2><p><b>Cliente:</b> ${safe(q.client)}<br><b>Contacto:</b> ${safe(q.phone||"â")}<br><b>VÃ¡lido atÃ©:</b> ${q.valid?new Date(q.valid+"T12:00:00").toLocaleDateString("pt-PT"):"â"}</p><table><tr><th>Produto</th><th>Qtd.</th><th>PreÃ§o unit.</th><th>Total</th></tr>${q.products.map(p=>`<tr><td>${safe(p.name)}</td><td>${p.qty}</td><td>${euro(p.price)}</td><td>${euro(p.qty*p.price)}</td></tr>`).join("")}</table><p class="total">Subtotal: ${euro(q.products.reduce((s,p)=>s+p.qty*p.price,0))}<br>Desconto: ${euro(q.discount)}<br>Total: ${euro(q.total)}</p><p>Estado: ${safe(q.status)}</p><p>${safe(q.notes||"")}</p><script>window.onload=()=>window.print()<\/script></html>`);w.document.close()}
-function renderQuotes(){const term=(document.getElementById("qSearch").value||"").toLowerCase(),list=quotes.filter(q=>(q.client+" "+q.phone+" "+q.products.map(p=>p.name).join(" ")).toLowerCase().includes(term)),el=document.getElementById("quotes");if(!list.length){el.innerHTML='<div class="empty">Ainda nÃ£o hÃ¡ orÃ§amentos a mostrar.</div>';return}el.innerHTML=list.map(q=>`<div class="order"><h3>${safe(q.client)}</h3><div class="muted">${safe(q.phone||"Sem contacto")} Â· ${q.valid?"VÃ¡lido atÃ© "+new Date(q.valid+"T12:00:00").toLocaleDateString("pt-PT"):"Sem validade definida"}</div><p>${q.products.map(p=>`${safe(p.name)} Ã ${p.qty} â ${euro(p.price)}`).join("<br>")}</p><div class="amount">${euro(q.total)}</div><span class="pill">${safe(q.status)}</span>${q.converted?'<span class="pill">Convertido em encomenda</span>':""}${q.notes?`<p class="muted">${safe(q.notes)}</p>`:""}<div class="actions"><button class="small" onclick="editQuote(${q.id})">Editar</button><button class="secondary small" onclick="printQuote(${q.id})">PDF / Imprimir</button>${q.status==="Aceite"&&!q.converted?`<button class="small" onclick="convertQuote(${q.id})">Criar encomenda</button>`:""}<button class="danger small" onclick="deleteQuote(${q.id})">Apagar</button></div></div>`).join("")}
-function calculateCost(){const g=Number(cGrams.value)||0,sp=Number(cSpoolPrice.value)||0,sw=Number(cSpoolWeight.value)||0,h=Number(cHours.value)||0,w=Number(cWatts.value)||0,k=Number(cKwh.value)||0,other=Number(cOther.value)||0,wear=Number(cWear.value)||0;if(sw<=0)return alert("O peso da bobine tem de ser superior a zero.");const filament=g*sp/sw,electric=h*w/1000*k,total=filament+electric+other+wear;lastCost={name:cName.value.trim(),grams:g,spoolPrice:sp,spoolWeight:sw,hours:h,watts:w,kwh:k,other,wear,filament,electric,total};cTotal.textContent=euro(total);[50,100,200].forEach(m=>{const price=total*(1+m/100);document.getElementById("p"+m).textContent=euro(price);document.getElementById("profit"+m).textContent="Lucro: "+euro(price-total)});return lastCost}
-function saveCostProduct(){const c=calculateCost();if(!c)return;if(!c.name)return alert("DÃ¡ um nome ao produto antes de guardar.");costProducts.unshift({...c,id:Date.now()});localStorage.setItem("meuAtelierCostProducts",JSON.stringify(costProducts));renderLibrary();alert("Produto guardado na biblioteca! â¡")}
-function useCostProduct(id){const p=costProducts.find(x=>x.id===id);if(!p)return;showPage("quotesPage",document.querySelector('[data-page="quotesPage"]'));if(!document.getElementById("qClient").value.trim()&&!quoteProducts().length){addQuoteProduct(p.name,1,Number((p.total*2).toFixed(2)))}else addQuoteProduct(p.name,1,Number((p.total*2).toFixed(2)));updateQuoteTotal();document.getElementById("qClient").focus()}
-function deleteCostProduct(id){if(!confirm("Remover da biblioteca?"))return;costProducts=costProducts.filter(x=>x.id!==id);localStorage.setItem("meuAtelierCostProducts",JSON.stringify(costProducts));renderLibrary()}
-function renderLibrary(){const el=document.getElementById("costLibrary");if(!costProducts.length){el.innerHTML='<div class="empty">Ainda nÃ£o guardaste produtos.</div>';return}el.innerHTML=costProducts.map(p=>`<div class="order"><h3>${safe(p.name)}</h3><div class="muted">${p.grams} g de filamento Â· ${p.hours} h de impressÃ£o</div><div class="amount">Custo: ${euro(p.total)} Â· PreÃ§o +100%: ${euro(p.total*2)}</div><div class="actions"><button class="small" onclick="useCostProduct(${p.id})">Adicionar a orÃ§amento</button><button class="danger small" onclick="deleteCostProduct(${p.id})">Apagar</button></div></div>`).join("")}
-["cGrams","cSpoolPrice","cSpoolWeight","cHours","cWatts","cKwh","cOther","cWear"].forEach(id=>document.getElementById(id).addEventListener("input",()=>calculateCost()));
-addProduct();addQuoteProduct();renderOrders();renderQuotes();renderLibrary();calculateCost();
+function addProduct(name="",qty=1,price=0){
+ const d=document.createElement("div");d.className="product";
+ d.innerHTML=`<label>Produto</label><input class="pname" placeholder="Nome do produto" value="${safe(name)}">
+ <div class="row"><div><label>Quantidade</label><input class="qty" type="number" min="1" value="${qty}" oninput="updateTotal()"></div>
+ <div><label>Preço unitário (€)</label><input class="price" type="number" min="0" step=".01" value="${price}" oninput="updateTotal()"></div></div>
+ <button class="danger small" onclick="this.parentElement.remove();updateTotal()">Remover produto</button>`;
+ document.getElementById("products").appendChild(d);updateTotal();
+}
+function safe(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function productData(){return [...document.querySelectorAll(".product")].map(d=>({name:d.querySelector(".pname").value,qty:Number(d.querySelector(".qty").value)||0,price:Number(d.querySelector(".price").value)||0})).filter(p=>p.name.trim())}
+function updateTotal(){
+ let t=productData().reduce((s,p)=>s+p.qty*p.price,0);
+ document.getElementById("total").textContent=euro(t);
+}
+function saveOrder(){
+ const client=document.getElementById("client").value.trim(),products=productData();
+ if(!client){alert("Indica o nome do cliente.");return}
+ if(!products.length){alert("Adiciona pelo menos um produto.");return}
+ const total=products.reduce((s,p)=>s+p.qty*p.price,0),paid=Number(document.getElementById("paid").value)||0;
+ if(paid<0||paid>total){alert("Confirma o valor pago. Não pode ser superior ao total.");return}
+ const order={id:editing||Date.now(),client,phone:document.getElementById("phone").value,products,total,paid,date:document.getElementById("date").value,status:document.getElementById("status").value,notes:document.getElementById("notes").value,created:new Date().toISOString()};
+ if(editing){orders=orders.map(o=>o.id===editing?order:o)}else{orders.unshift(order)}
+ localStorage.setItem("meuAtelierOrders",JSON.stringify(orders));
+ resetForm();render();alert("Encomenda guardada! ♡");
+}
+function resetForm(){
+ editing=null;document.getElementById("client").value="";document.getElementById("phone").value="";
+ document.getElementById("paid").value=0;document.getElementById("date").value="";
+ document.getElementById("status").value="Por preparar";document.getElementById("notes").value="";
+ document.getElementById("products").innerHTML="";addProduct();
+}
+function editOrder(id){
+ const o=orders.find(x=>x.id===id);if(!o)return;editing=id;
+ document.getElementById("client").value=o.client;document.getElementById("phone").value=o.phone||"";
+ document.getElementById("paid").value=o.paid;document.getElementById("date").value=o.date||"";
+ document.getElementById("status").value=o.status;document.getElementById("notes").value=o.notes||"";
+ document.getElementById("products").innerHTML="";o.products.forEach(p=>addProduct(p.name,p.qty,p.price));
+ document.querySelector("h2").scrollIntoView({behavior:"smooth"});
+}
+function removeOrder(id){
+ if(!confirm("Queres apagar esta encomenda?"))return;
+ orders=orders.filter(o=>o.id!==id);localStorage.setItem("meuAtelierOrders",JSON.stringify(orders));render();
+}
+function render(){
+ const q=document.getElementById("search").value.toLowerCase(),f=document.getElementById("filter").value;
+ const list=orders.filter(o=>(!f||o.status===f)&&(`${o.client} ${o.phone} ${o.products.map(p=>p.name).join(" ")}`).toLowerCase().includes(q));
+ const el=document.getElementById("orders");
+ if(!list.length){el.innerHTML='<div class="empty">Ainda não há encomendas a mostrar.</div>';return}
+ el.innerHTML=list.map(o=>{
+ const due=o.total-o.paid;
+ return `<div class="order"><h3>${safe(o.client)}</h3>
+ <div class="muted">${safe(o.phone||"Sem contacto")} · ${o.date?new Date(o.date+"T12:00:00").toLocaleDateString("pt-PT"):"Sem data prevista"}</div>
+ <p>${o.products.map(p=>`${safe(p.name)} × ${p.qty}`).join("<br>")}</p>
+ <div class="amount">${euro(o.total)} · Pago: ${euro(o.paid)} · Em dívida: ${euro(due)}</div>
+ <span class="pill">${safe(o.status)}</span><span class="pill">${due<=0?"Pago":"Por pagar"}</span>
+ ${o.notes?`<p class="muted">${safe(o.notes)}</p>`:""}
+ <div class="actions"><button class="small" onclick="editOrder(${o.id})">Editar</button><button class="danger small" onclick="removeOrder(${o.id})">Apagar</button></div></div>`;
+ }).join("");
+}
+function exportData(){
+ const blob=new Blob([JSON.stringify(orders,null,2)],{type:"application/json"});
+ const url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="meu-atelier-backup.json";a.click();URL.revokeObjectURL(url);
+}
+addProduct();render();
 </script>
-</body></html> 
+</body>
+</html>
